@@ -1,0 +1,59 @@
+.eight-ball-black {
+
+    @include centerer;
+
+
+        width: 20rem;
+        height: 20rem;
+        background-color: black;
+        border-radius: 50%;
+        position: relative;
+}
+
+.eight-ball-white {
+    
+        width: 10rem;
+        height: 10rem;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: calc(50% - 7rem);
+        right: calc(50% - 6rem);
+        color: black;
+        padding: 0 12px;
+        
+        div {
+            @include centerer;
+        }
+}
+
+.action-row-bottom {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background-color: rgba(255,255,255,0.4);
+    text-align: left;
+    padding: 10px;
+
+    > p {
+        margin-top: 0;
+    }
+
+
+}
+.input-with-button {
+    width: 100%;
+    display: inline-block;
+    border-radius: 9px;
+    > ion-input {
+        background-color: rgba(255,255,255,0.1);
+        display: inline-block;
+        width: 70%;
+    }
+    > button {
+        width: 25%;
+        margin-bottom: 12px;
+    }
+
+}

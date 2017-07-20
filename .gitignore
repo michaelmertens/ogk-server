@@ -27,6 +27,10 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+index.js
+server/**/*.js
+public/src/**/*.js
+public/node_modules
 
 # Dependency directories
 node_modules
@@ -37,3 +41,4 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+

@@ -1,7 +1,0 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class OgkNews {
-}
-exports.OgkNews = OgkNews;
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNoYXJlZC9jb250cmFjdHMvbmV3cy1jb250cmFjdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBO0NBS0M7QUFMRCwwQkFLQyIsImZpbGUiOiJzaGFyZWQvY29udHJhY3RzL25ld3MtY29udHJhY3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY2xhc3MgT2drTmV3cyB7XHJcbiAgICBwdWJsaWMgZGF0ZTogRGF0ZTtcclxuICAgIHB1YmxpYyBhdXRob3I6IHN0cmluZztcclxuICAgIHB1YmxpYyB0aXRsZTogc3RyaW5nO1xyXG4gICAgcHVibGljIGNvbnRlbnQ6IHN0cmluZztcclxufSJdLCJzb3VyY2VSb290IjoiLi5cXC4uIn0=

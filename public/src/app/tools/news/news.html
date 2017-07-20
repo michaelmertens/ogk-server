@@ -1,0 +1,13 @@
+<div class="member">
+  <div class="navbar">
+    <button class="menu"></button>
+    <div class="title">News</div>
+  </div>
+
+  <div class="card" *ngFor="let s of newsStories" (click)="s.expand = !s.expand">
+    <div class="card-header">{{s.title}}</div>
+    <div class="card-content">
+      {{s.content}}
+    </div>
+  </div>
+</div>

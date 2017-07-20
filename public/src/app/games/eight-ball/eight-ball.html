@@ -1,0 +1,22 @@
+<div class="eightball">
+  <div class="navbar">
+    <button class="menu"></button>
+    <div class="title">Ask the Eight Ball</div>
+  </div>
+
+  <button (click)="shakeBall()">Shake ball</button>
+  
+  <div class="eight-ball-black">
+    <div class="eight-ball-white">
+      <div>{{currentAnswer}}</div>
+    </div>
+  </div>
+
+  <div class="action-row-bottom">
+      <p>Submit new responses:</p>
+      <div class="input-with-button">
+        <input type="text" [(ngModel)]="newResponse" placeholder="New Response"/>
+        <button ion-button secondary class="button button-md button-default button-default-md" (click)="addNewResponse(newResponse)">Submit</button>
+      </div>
+  </div>
+</div>

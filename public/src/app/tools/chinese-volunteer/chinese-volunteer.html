@@ -1,0 +1,20 @@
+<div class="chinese-volunteer">
+  <div class="navbar">
+    <button class="menu"></button>
+    <div class="title">Chinese Vrijwilliger</div>
+  </div>
+  <div class="bottom-space">
+    <h2>{{chosenMember}}</h2>
+    <button (click)="go()">Pick volunteer</button>
+  </div>
+  <!-- List header with buttons on each side -->
+  <div class="list-header">
+    Participants
+  </div>
+  <div class="list">
+    <div class="item" *ngFor="let m of members">
+        <div class="label">{{m.member.firstName}}</div>
+        <input type="checkbox" [(ngModel)]="m.active">
+    </div>
+  </div>
+</div>

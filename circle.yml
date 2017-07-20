@@ -1,0 +1,46 @@
+machine:
+  node:
+    version: 6.1.0
+  environment:
+    YARN_VERSION: 0.18.1
+    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
+dependencies:
+  pre:
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        echo "Download and install Yarn."
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      else
+        echo "The correct version of Yarn is already installed."
+      fi
+    # install modules
+    - yarn global add @angular/cli
+    - yarn global add gulp
+  override:
+    - yarn install --ignore-engines #Because of azure-arm-intune bad config
+    - cd public && yarn install
+  cache_directories:
+    - ~/.yarn
+    - ~/.cache/yarn
+
+test:
+  override:
+    - gulp
+    - yarn run build-ui
+
+deployment:
+  ogkprd:
+    branch: master
+    commands:
+      - git config --global user.email "mertens.michael@hotmail.com"
+      - git config --global user.name "OGK CircleCI Deployer"
+      - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+      - git add public/dist -f --all
+      - git add index.js -f --all
+      - git add public/load-ga.js -f 
+      - git add public/src/api-contracts -f --all
+      - git add server/*.js -f --all
+      - git add server/**/*.js -f --all
+      - git commit -am "Committing build output" --no-verify || true
+      - git push -f git@heroku.com:guldenkano.git master:master --no-verify --force -q

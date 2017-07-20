@@ -1,0 +1,19 @@
+<div class="eightball">
+  <div class="navbar">
+    <button class="menu"></button>
+    <div class="title">Sing your Song!</div>
+  </div>
+
+<div text-center padding>
+
+    <button ion-button secondary center (click)="spinWheel()">Spin the wheel!</button>
+
+    <div *ngIf="currentSong">
+        <h2>{{currentSong.title}}</h2>
+        <h4>{{currentSong.artist}}</h4>
+
+        Brought by: 
+        <h4>{{currentMember.lastName}}</h4>
+    </div>
+
+</div>
