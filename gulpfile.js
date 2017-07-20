@@ -4,7 +4,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var path = require('path');
 var clean = require('gulp-clean');
 
-var tsFiles = ['./**/*.ts', '!./node_modules/**/*.*'];
+var tsFiles = ['./**/*.ts', '!./public/**/*.*', '!./node_modules/**/*.*'];
 
 gulp.task('clean', function(){
    return gulp.src(['./index.js', './facades/**/*.js'])
