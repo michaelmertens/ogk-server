@@ -38,8 +38,7 @@ deployment:
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
       - git add public/dist -f --all
       - git add index.js -f --all
-      - git add public/load-ga.js -f 
-      - git add public/src/api-contracts -f --all
+      - git add public/src/models -f --all
       - git add server/*.js -f --all
       - git add server/**/*.js -f --all
       - git commit -am "Committing build output" --no-verify || true
