@@ -1,9 +1,7 @@
 {
-  "name": "Orde van de Gulden Kano",
-  "short_name": "Gulden Kano",
-  "start_url": "index.html",
-  "display": "standalone",
-  "icons": [{
+ "name": "App",
+ "icons": [
+  {
    "src": "\/android-icon-36x36.png",
    "sizes": "36x36",
    "type": "image\/png",
@@ -38,7 +36,6 @@
    "sizes": "192x192",
    "type": "image\/png",
    "density": "4.0"
-  }],
-  "background_color": "#4e8ef7",
-  "theme_color": "#4e8ef7"
+  }
+ ]
 }

@@ -13,8 +13,8 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as log4js from 'log4js';
 import * as cors from 'cors';
-import appConfig from './app-config';
-import appSecurity from './app-security';
+import appConfig from './server/app-config';
+import appSecurity from './server/app-security';
 
 var logger = log4js.getLogger('[ogk] [index]');
 var app = express();
@@ -105,7 +105,7 @@ app.post('/login',
 
 // APPLICATION
 // =============================================================================
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/public/dist')));
 
 // Error handler
 app.use(function(err, req, res, next) {

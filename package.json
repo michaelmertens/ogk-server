@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start-dev": "nodemon -r dotenv/config --inspect=9229 index.js",
     "build-ui": "cd public && ng build --prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -42,6 +43,7 @@
     "@types/q": "0.0.32",
     "@types/request-promise": "^4.1.33",
     "@types/soap": "0.0.30",
+    "dotenv": "^4.0.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-sourcemaps": "^2.4.1",

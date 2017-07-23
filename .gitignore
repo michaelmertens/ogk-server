@@ -30,7 +30,9 @@ build/Release
 index.js
 server/**/*.js
 public/src/**/*.js
+public/dist/**/*.*
 public/node_modules
+.env
 
 # Dependency directories
 node_modules
