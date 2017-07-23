@@ -1,20 +1,24 @@
 <div class="member">
-  <div class="navbar">
-    <button class="menu"></button>
-    <div class="title">Members</div>
-  </div>
+  <header class="align-center">
+    <h1>Members</h1>
+    <p></p>
+  </header>
 
-  <div class="card" *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
-      <div class="card-header">
-        {{vm.member.lastName}}
-        <i class="icon" [hidden]="vm.expand" name="arrow-down"></i>
-        <i class="icon" [hidden]="!vm.expand" name="arrow-up"></i>
-      </div>
-      <div class="card-content">
-          <div [hidden]="!vm.expand"> 
-            Adres:  Bondgenotenlaan 1, 3000 Leuven
-            Rekeningnr.:  BE36 5874 6985 4522
-          </div>
-      </div>
+  <div class="row">
+    <ul class="alt">
+
+      <dl *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
+        <dt>{{vm.member.lastName}}</dt>
+        <dd [hidden]="!vm.expand">
+          Adres: Bondgenotenlaan 1, 3000 Leuven Rekeningnr.: BE36 5874 6985 4522
+        </dd>
+      </dl>
+
+
+      <li>Dolor pulvinar etiam magna etiam.</li>
+      <li>Sagittis adipiscing lorem eleifend.</li>
+      <li>Felis enim feugiat dolore viverra.</li>
+    </ul>
+
   </div>
 </div>

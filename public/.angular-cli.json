@@ -21,7 +21,13 @@
       "styles": [
         "styles.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../lib/intensify/js/jquery.min.js",
+        "../lib/intensify/js/jquery.scrolly.min.js",
+        "../lib/intensify/js/skel.min.js",
+        "../lib/intensify/js/util.js",
+        "../lib/intensify/js/main.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

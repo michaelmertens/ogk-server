@@ -1,7 +1,34 @@
-<div class="navbar">
-  <p>
-    Orde van de Gulden Kano
-  </p>
+
+<header id="header">
+  <nav class="left">
+    <a href="#menu"><span>Menu</span></a>
+  </nav>
+  <a href="index.html" class="logo">Orde van de Gulden Kano</a>
+  <nav class="right">
+    <a *ngIf="!isAuthenticated" class="button alt" (click)="login();">LOG IN</a>
+    <a *ngIf="isAuthenticated" class="button alt" (click)="logout();">LOG OUT</a>
+  </nav>
+</header>
+
+
+<nav id="menu">
+  <ul class="links">
+    <li routerLink="home"><a>Home</a></li>
+    <li routerLink="tools/news"><a>News</a></li>
+  </ul>
+  <ul class="links">
+    <li routerLink="games/8ball"><a>8-Ball</a></li>
+    <li routerLink="games/kings-cup"><a>King's Cup</a></li>
+    <li routerLink="games/sing-your-song"><a>Sing Your Song</a></li>
+    <li routerLink="tools/members"><a>Members</a></li>
+    <li routerLink="tools/chinese-volunteer"><a>Chinese Volunteer</a></li>
+  </ul>
+  <ul class="actions vertical">
+    <li><a class="button fit">Login</a></li>
+  </ul>
+</nav>
+<!-- 
+<nav class="navbar">
   <ul>
     <li routerLink="games/8ball">8-Ball</li>
     <li routerLink="games/kings-cup">King's Cup</li>
@@ -9,16 +36,5 @@
   </ul>
 
   <ul>
-    <li routerLink="tools/news">News</li>
-    <li routerLink="tools/members">Members</li>
-    <li routerLink="tools/chinese-volunteer">Chinese Volunteer</li>
   </ul>
-
-  <div *ngIf="!isAuthenticated">
-    <button (click)="login();">LOGIN</button>
-  </div>
-  <div *ngIf="isAuthenticated">
-    <span>Welcome</span>
-    <button (click)="logout();">LOGOUT</button>
-  </div>
-</div>
+</nav> -->

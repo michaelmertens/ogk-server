@@ -16,6 +16,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { SharedModule } from "app/shared/shared.module";
 import { AuthService } from "app/core/services/auth.service";
 import { AuthInterceptor } from "app/core/services/http.service";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { AuthInterceptor } from "app/core/services/http.service";
   declarations: [
     NavbarComponent,
     CallbackComponent,
+    HomeComponent,
   ],
   providers: [
     AuthService,
