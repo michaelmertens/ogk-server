@@ -3,7 +3,7 @@ export interface IKingsCupRulebook {
     name: string;
     author: string;
     description: string;
-    readOnly: boolean;
+    readonly: boolean;
 
     rule1: string;
     rule2: string;

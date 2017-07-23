@@ -90,7 +90,7 @@ export var KingsCupRulebookSchema = new mongoose.Schema({
     name: {type: String},
     author: {type: String},
     description: {type: String},
-    readOnly: {type: Boolean},
+    readonly: {type: Boolean},
 
     rule1: {type: String},
     rule2: {type: String},
