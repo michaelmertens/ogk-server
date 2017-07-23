@@ -1,4 +1,5 @@
-var gulp = require('gulp');
+var gulp = require('gulp')
+    debug = require('gulp-debug');
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var path = require('path');
@@ -7,12 +8,13 @@ var clean = require('gulp-clean');
 var tsFiles = ['./**/*.ts', '!./public/**/*.*', '!./node_modules/**/*.*'];
 
 gulp.task('clean', function(){
-   return gulp.src(['./index.js', './facades/**/*.js'])
+   return gulp.src(['./index.js', './server/**/*.js'])
        .pipe(clean())
 });
 
 gulp.task('scripts', ['clean'], function () {    
     var tsResult =  gulp.src(tsFiles, {base: "."})
+        .pipe(debug())
         .pipe(sourcemaps.init())
         .pipe(ts({
             module: 'commonjs',
