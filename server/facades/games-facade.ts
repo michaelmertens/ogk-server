@@ -1,7 +1,11 @@
 import * as express from "express";
 import {KingsCupFacade} from "./games/kingscup-facade";
+const router = express.Router(); 
 
-export var router = express.Router(); // get an instance of the express Router
+export class GamesFacade {
+    static router = router;
+}
+  
 router.get('/kingscup/', KingsCupFacade.getRulebooks);
 router.get('/kingscup/:id', KingsCupFacade.getRulebook);
 router.post('/kingscup/', KingsCupFacade.addRulebook);

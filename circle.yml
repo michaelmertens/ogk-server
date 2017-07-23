@@ -36,10 +36,9 @@ deployment:
       - git config --global user.email "mertens.michael@hotmail.com"
       - git config --global user.name "OGK CircleCI Deployer"
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
-      - git add public/dist -f --all
-      - git add index.js -f --all
-      - git add public/src/models -f --all
-      - git add server/*.js -f --all
-      - git add server/**/*.js -f --all
+      - git add 'public/dist' -f --all
+      - git add 'index.js' -f --all
+      - git add 'public/src/models' -f --all
+      - git add 'server/*.js' -f --all
       - git commit -am "Committing build output" --no-verify || true
       - git push -f git@heroku.com:guldenkano.git master:master --no-verify --force -q

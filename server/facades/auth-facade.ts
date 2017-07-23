@@ -1,12 +1,42 @@
-import {Request, Response, NextFunction} from "express-serve-static-core";
+import { Request, Response, NextFunction } from "express-serve-static-core";
+import * as express from "express";
 import * as errorService from '../services/error-service';
 import errorCodes from '../shared/error-codes';
-import {Logger} from "log4js";
-var logger: Logger = require('log4js').getLogger('[ogk] [AuthFacade]');
+import { Logger } from "log4js";
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
+const logger: Logger = require('log4js').getLogger('[ogk] [AuthFacade]');
+
+const router = express.Router();
+
+export class AuthFacade {
+    static router = router;
+    static jwtCheck = jwt({
+        secret: jwks.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: "https://guldenkano.eu.auth0.com/.well-known/jwks.json"
+        }),
+        audience: 'https://guldenkano.herokuapp.com',
+        issuer: "https://guldenkano.eu.auth0.com/",
+        algorithms: ['RS256']
+    });
+
+    static login(req: Request, res: Response) {
+        let id = req.params.id;
+
+        res.send({
+        });
+    }
+}
+
+// router config
+router.post('/login', AuthFacade.login);
 
 export function requireAuthentication(req: Request, res: Response, next: NextFunction) {
     next();
-    
+
     // if (req.isAuthenticated() || isStaticResource(req)) {
     //     next();
     // } else {
@@ -32,4 +62,3 @@ export function requireAuthentication(req: Request, res: Response, next: NextFun
 function isStaticResource(req: Request) {
     return req.baseUrl.startsWith('/static/');
 }
-

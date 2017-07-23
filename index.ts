@@ -4,8 +4,8 @@ import * as passport from 'passport';
 import * as LocalStrategy from 'passport-local';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
-import * as AuthFacade from './server/facades/auth-facade';
-import * as GamesFacade from './server/facades/games-facade';
+import {AuthFacade} from './server/facades/auth-facade';
+import {GamesFacade} from './server/facades/games-facade';
 import {EventsFacade} from './server/facades/events-facade';
 import {NewsFacade} from './server/facades/news-facade';
 import * as dbInitializer from './server/repositories/db-initializer';
@@ -133,8 +133,11 @@ process.on('SIGINT', function () {
 
 // ROUTES FOR OUR API
 // =============================================================================
-// middleware to use for all requests
-app.all('/api*', AuthFacade.requireAuthentication);
+// authentication required beyond this point
+app.use(AuthFacade.jwtCheck);
+//app.all('/api*', AuthFacade.requireAuthentication);
+
+// middleware to use for all API requests
 app.use(function(req, res, next) {
     // do logging
     logger.info(req.method + " " + req.url);
@@ -142,6 +145,7 @@ app.use(function(req, res, next) {
 });
 
 // more routes for our API will happen here
+app.use('/api/auth', AuthFacade.router);
 app.use('/api/events', EventsFacade.router);
 app.use('/api/games', GamesFacade.router);
 app.use('/api/news', NewsFacade.router);
