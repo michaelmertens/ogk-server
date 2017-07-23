@@ -1,14 +1,24 @@
-<p>
-  Orde van de Gulden Kano
-</p>
+<div class="navbar">
+  <p>
+    Orde van de Gulden Kano
+  </p>
+  <ul>
+    <li routerLink="games/8ball">8-Ball</li>
+    <li routerLink="games/kings-cup">King's Cup</li>
+    <li routerLink="games/sing-your-song">Sing Your Song</li>
+  </ul>
 
-<ul>
-  <li routerLink="games/8ball">8-Ball</li>
-  <li routerLink="games/sing-your-song">Sing Your Song</li>
-</ul>
+  <ul>
+    <li routerLink="tools/news">News</li>
+    <li routerLink="tools/members">Members</li>
+    <li routerLink="tools/chinese-volunteer">Chinese Volunteer</li>
+  </ul>
 
-<ul>
-  <li routerLink="tools/news">News</li>
-  <li routerLink="tools/members">Members</li>
-  <li routerLink="tools/chinese-volunteer">Chinese Volunteer</li>
-</ul>
+  <div *ngIf="!isAuthenticated">
+    <button (click)="login();">LOGIN</button>
+  </div>
+  <div *ngIf="isAuthenticated">
+    <span>Welcome</span>
+    <button (click)="logout();">LOGOUT</button>
+  </div>
+</div>

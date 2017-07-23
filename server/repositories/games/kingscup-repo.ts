@@ -3,7 +3,7 @@ import * as Log4js from 'log4js';
 import * as mongoose from "mongoose";
 import * as errorService from '../../services/error-service';
 import errorCodes from '../../shared/error-codes';
-import { KingsCupRulebook } from "../../shared/contracts/games-contract";
+import { IKingsCupRulebook } from "../../../public/src/models/api-contracts/kingscup";
 
 var KingsCupRulebookModel;
 
@@ -15,7 +15,7 @@ export function initializeSchema() {
 export function getById(id: string) {
     return Q.Promise(function (resolve, reject) {
         KingsCupRulebookModel.findById(id, {"__v":0})
-            .exec((err, result: KingsCupRulebook)=> {
+            .exec((err, result: IKingsCupRulebook)=> {
                 if (err) {
                     reject(err);
                 } else if (!result) {
@@ -30,7 +30,7 @@ export function getById(id: string) {
 export function getByKey(key: string) {
     return Q.Promise(function (resolve, reject) {
         KingsCupRulebookModel.find({'id': key}, {"__v":0})
-            .exec((err, result: KingsCupRulebook)=> {
+            .exec((err, result: IKingsCupRulebook)=> {
                 if (err) {
                     reject(err);
                 } else if (!result) {
@@ -55,7 +55,7 @@ export function getAll() {
 };
 
 // MODIFIERS
-export function create(rulebook: KingsCupRulebook) {
+export function create(rulebook: IKingsCupRulebook) {
     let obj = new KingsCupRulebookModel(rulebook);
     return Q.ninvoke(obj, "save")
         .then((result)=>{
@@ -63,7 +63,7 @@ export function create(rulebook: KingsCupRulebook) {
         });
 }
 
-export function update(rulebook: KingsCupRulebook) {
+export function update(rulebook: IKingsCupRulebook) {
     return Q.ninvoke(rulebook, "save")
         .then((result)=> {
             return result[0].toObject();
@@ -71,7 +71,7 @@ export function update(rulebook: KingsCupRulebook) {
 }
 
 // REMOVE
-export function remove(rulebook:KingsCupRulebook) {
+export function remove(rulebook:IKingsCupRulebook) {
     return Q.Promise(function (resolve, reject) {
         KingsCupRulebookModel.findByIdAndRemove(rulebook.key)
             .exec((err, result)=> {

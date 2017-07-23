@@ -4,7 +4,7 @@ import * as kingsCupService from '../../services/games/kingscup-service';
 import {handleErrors} from "../../services/error-service";
 import * as Log4js from 'log4js';
 import { Logger } from "log4js";
-import { KingsCupRulebook } from "../../shared/contracts/games-contract";
+import { IKingsCupRulebook } from "../../../public/src/models/api-contracts/kingscup";
 import { IUserSession } from "../../shared/contracts/user-contract";
 
 const logger: Logger = Log4js.getLogger('[ogk] [kingscup facade]');
@@ -35,7 +35,7 @@ export class KingsCupFacade {
     }
 
     static addRulebook(req: Request, res: Response) {
-        let rulebook: KingsCupRulebook = req.body;
+        let rulebook: IKingsCupRulebook = req.body;
         
         authService.getAuthenticatedUser(req)
             .then((user: IUserSession) => {
@@ -47,7 +47,7 @@ export class KingsCupFacade {
 
     static updateRulebook(req: Request, res: Response) {
         let id = req.params.id;
-        let rulebook: KingsCupRulebook = req.body;
+        let rulebook: IKingsCupRulebook = req.body;
 
         authService.getAuthenticatedUser(req)
             .then((user: IUserSession) => {
@@ -61,7 +61,7 @@ export class KingsCupFacade {
     
     static removeRulebook(req: Request, res: Response) {
         let id = req.params.id;
-        let rulebook: KingsCupRulebook = req.body;
+        let rulebook: IKingsCupRulebook = req.body;
 
         authService.getAuthenticatedUser(req)
             .then((user: IUserSession) => kingsCupService.removeRulebook(rulebook, user))

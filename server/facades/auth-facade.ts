@@ -18,7 +18,7 @@ export class AuthFacade {
             jwksRequestsPerMinute: 5,
             jwksUri: "https://guldenkano.eu.auth0.com/.well-known/jwks.json"
         }),
-        audience: 'https://guldenkano.herokuapp.com',
+        audience: 'aBgzXp6IjcQrdRGNOGtoDF5qrKoY17Bh',//'https://guldenkano.herokuapp.com',
         issuer: "https://guldenkano.eu.auth0.com/",
         algorithms: ['RS256']
     });

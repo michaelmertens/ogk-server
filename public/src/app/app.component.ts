@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from "app/core/services/auth.service";
 @Component({
   selector: 'ogk-root',
   templateUrl: './app.component.html',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(public auth: AuthService) {
+    auth.handleAuthentication();
   }
 }

@@ -117,24 +117,15 @@ app.use(function(err, req, res, next) {
     next(err);
 });
 
-// Start application and initialize DB Connection
-app.listen(app.get('port'), function () {
-    dbInitializer.initConnection()
-        .then(() => {
-            logger.info(`OGK is now running on port ${app.get('port')}!`);
-        });
-});
-
-process.on('SIGINT', function () {
-    dbInitializer.closeDBConnections();
-    process.exit(0);
-});
-
-
 // ROUTES FOR OUR API
 // =============================================================================
 // authentication required beyond this point
-app.use(AuthFacade.jwtCheck);
+app.use(AuthFacade.jwtCheck,
+  function(req, res, next) {
+    if (!req.user['https://guldenkano.herokuapps.com/member-id']) return res.send(401);    
+    req.user.memberId = req.user['https://guldenkano.herokuapps.com/member-id'];
+    next(); 
+  });
 //app.all('/api*', AuthFacade.requireAuthentication);
 
 // middleware to use for all API requests
@@ -150,3 +141,17 @@ app.use('/api/events', EventsFacade.router);
 app.use('/api/games', GamesFacade.router);
 app.use('/api/news', NewsFacade.router);
 
+// 
+// Start application and initialize DB Connection
+// =============================================================================
+app.listen(app.get('port'), function () {
+    dbInitializer.initConnection()
+        .then(() => {
+            logger.info(`OGK is now running on port ${app.get('port')}!`);
+        });
+});
+
+process.on('SIGINT', function () {
+    dbInitializer.closeDBConnections();
+    process.exit(0);
+});

@@ -3,7 +3,7 @@ import * as Log4js from 'log4js';
 import * as errorService from '../../services/error-service';
 import * as kingsCupRepo from '../../repositories/games/kingscup-repo';
 import { Logger } from "log4js";
-import { KingsCupRulebook } from "../../shared/contracts/games-contract";
+import { IKingsCupRulebook } from "../../../public/src/models/api-contracts/kingscup";
 import errorCodes from '../../shared/error-codes';
 import { IUserSession } from "../../shared/contracts/user-contract";
 
@@ -19,7 +19,7 @@ export function getRulebooks() {
 }
 
 // MODIFIERS
-export function addRulebook(rulebook: KingsCupRulebook, user: IUserSession) {
+export function addRulebook(rulebook: IKingsCupRulebook, user: IUserSession) {
     rulebook.author = user.nameId;
     rulebook.key = calcIdFromName(rulebook.name);
 
@@ -46,9 +46,9 @@ export function addRulebook(rulebook: KingsCupRulebook, user: IUserSession) {
     });
 }
 
-export function updateRulebook(update: KingsCupRulebook, user: IUserSession) {
+export function updateRulebook(update: IKingsCupRulebook, user: IUserSession) {
     return kingsCupRepo.getById(update.key)
-        .then((current: KingsCupRulebook)=>{
+        .then((current: IKingsCupRulebook)=>{
             if(!canUpdateRulebook(current, user)) {
                 throw errorService.createErrorMessage(errorCodes.ERROR_NOT_AUTHORIZED);
             }
@@ -56,7 +56,7 @@ export function updateRulebook(update: KingsCupRulebook, user: IUserSession) {
         });
 }
 
-export function removeRulebook(rulebook: KingsCupRulebook, user: IUserSession) {
+export function removeRulebook(rulebook: IKingsCupRulebook, user: IUserSession) {
     return kingsCupRepo.remove(rulebook);
 }
 
@@ -67,6 +67,6 @@ function calcIdFromName(name: string): string {
     return name.toLowerCase().replace(/[^0-9a-zA-Z]/g, '').substr(0, 50);
 }
 
-function canUpdateRulebook(item: KingsCupRulebook, user: IUserSession): boolean {
+function canUpdateRulebook(item: IKingsCupRulebook, user: IUserSession): boolean {
     return user.isAdmin || item.author === user.nameId;
 }
