@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 import { BehaviorSubject } from 'rxjs/Rx';
+import { LoggerService } from 'app/core/services/logger.service';
 
 @Injectable()
 export class AuthService {
   public authStatus: BehaviorSubject<boolean>;
+  public redirectUrl: string;
 
   auth0 = new auth0.WebAuth({
     clientID: 'aBgzXp6IjcQrdRGNOGtoDF5qrKoY17Bh',
@@ -24,6 +26,15 @@ export class AuthService {
     } else {
       this.router.navigate(['/home']);
     }
+  }
+
+  public goToLogin(redirectUrl?: string): void {
+    // Store the attempted URL for redirecting
+    this.redirectUrl = redirectUrl;
+
+    // Navigate to the starting page
+    // TODO: if user logged in before, go straight to login page
+    this.router.navigate(['start']);
   }
 
   public login(): void {
@@ -80,5 +91,32 @@ export class AuthService {
   public getAuthorizationHeader(): string {
     if (!this.isAuthenticated) return undefined;
     return 'Bearer ' + localStorage.getItem('id_token');
+  }
+}
+
+@Injectable()
+export class AuthGuard {
+  constructor(
+    private authService: AuthService,
+    private logger: LoggerService,
+    private router: Router) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const url: string = state.url;
+    return this.checkLogin(url);
+  }
+
+  checkLogin(url: string): boolean {
+    if (!this.authService.isAuthenticated()) {
+      console.info('AuthGuard redirecting to login page..');
+      this.authService.goToLogin(url);
+      return false;
+    }
+    if (!localStorage.getItem('member_id')) {
+      console.info('AuthGuard redirecting to under-review page..');
+      this.router.navigate(['/under-review']);
+      return false;
+    }
+    return true;
   }
 }

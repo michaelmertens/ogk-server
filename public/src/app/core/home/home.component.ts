@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "app/core/services/auth.service";
 
 @Component({
   selector: 'ogk-home',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  public isAuthenticated: boolean;
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.authStatus.subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated
+    });
+  }
+
+  login() {
+    this.auth.login();
   }
 
 }

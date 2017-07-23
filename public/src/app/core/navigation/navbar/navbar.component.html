@@ -10,13 +10,12 @@
   </nav>
 </header>
 
-
 <nav id="menu">
   <ul class="links">
     <li routerLink="home"><a>Home</a></li>
     <li routerLink="tools/news"><a>News</a></li>
   </ul>
-  <ul class="links">
+  <ul class="links" *ngIf="isAuthenticated">
     <li routerLink="games/8ball"><a>8-Ball</a></li>
     <li routerLink="games/kings-cup"><a>King's Cup</a></li>
     <li routerLink="games/sing-your-song"><a>Sing Your Song</a></li>
@@ -24,7 +23,8 @@
     <li routerLink="tools/chinese-volunteer"><a>Chinese Volunteer</a></li>
   </ul>
   <ul class="actions vertical">
-    <li><a class="button fit">Login</a></li>
+    <li *ngIf="!isAuthenticated"><a class="button fit" (click)="login();">Login</a></li>
+    <li *ngIf="isAuthenticated"><a class="button fit" (click)="logout();">Logout</a></li>
   </ul>
 </nav>
 <!-- 

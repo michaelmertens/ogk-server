@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ogk-news',
-  templateUrl: 'news.html'
+  templateUrl: 'news.html',
+  styleUrls: ['./news.scss']
 })
 export class News {
 

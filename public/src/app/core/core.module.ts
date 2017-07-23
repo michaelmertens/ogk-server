@@ -14,7 +14,7 @@ import { RandomService } from './services/random.service';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { CallbackComponent } from './callback/callback.component';
 import { SharedModule } from "app/shared/shared.module";
-import { AuthService } from "app/core/services/auth.service";
+import { AuthService, AuthGuard } from "app/core/services/auth.service";
 import { AuthInterceptor } from "app/core/services/http.service";
 import { HomeComponent } from './home/home.component';
 
@@ -35,6 +35,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
   ],
   providers: [
+    AuthGuard,
     AuthService,
     LoggerService,
     MemberService,

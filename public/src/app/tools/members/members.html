@@ -1,23 +1,19 @@
-<div class="member">
+<div class="members">
   <header class="align-center">
     <h1>Members</h1>
     <p></p>
   </header>
 
   <div class="row">
-    <ul class="alt">
-
-      <dl *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
-        <dt>{{vm.member.lastName}}</dt>
-        <dd [hidden]="!vm.expand">
-          Adres: Bondgenotenlaan 1, 3000 Leuven Rekeningnr.: BE36 5874 6985 4522
-        </dd>
-      </dl>
-
-
-      <li>Dolor pulvinar etiam magna etiam.</li>
-      <li>Sagittis adipiscing lorem eleifend.</li>
-      <li>Felis enim feugiat dolore viverra.</li>
+    <ul class="alt list-center">
+      <li *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
+        <dl>
+          <dt>{{vm.member.lastName}}</dt>
+          <dd [hidden]="!vm.expand">
+            Adres: Bondgenotenlaan 1, 3000 Leuven Rekeningnr.: BE36 5874 6985 4522
+          </dd>
+        </dl>
+      </li>
     </ul>
 
   </div>

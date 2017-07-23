@@ -4,7 +4,8 @@ import { Member } from "app/models";
 
 @Component({
   selector: 'ogk-members',
-  templateUrl: 'members.html'
+  templateUrl: 'members.html',
+  styleUrls: ['./members.scss']
 })
 export class Members {
 
@@ -13,7 +14,11 @@ export class Members {
   constructor(
     public memberService: MemberService
   ) {
-    this.members = memberService.getEveryone().map(m => {
+    this.members = memberService.getEveryone().sort((a, b) => {
+      if (a.lastName < b.lastName) return -1; 
+      if (a.lastName > b.lastName) return 1; 
+      return 0;
+    }).map(m => {
       return {
         expand: false,
         member: m
