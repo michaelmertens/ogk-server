@@ -1,5 +1,5 @@
 // load the things we need
-import * as Q from "Q";
+import * as Q from 'q';
 import * as mongoose from "mongoose";
 var UserModel;
 
