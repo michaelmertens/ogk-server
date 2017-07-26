@@ -16,6 +16,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { SharedModule } from "app/shared/shared.module";
 import { AuthService, AuthGuard } from "app/core/services/auth.service";
 import { AuthInterceptor } from "app/core/services/http.service";
+import { StorageService } from "app/core/services/storage.service";
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { HomeComponent } from './home/home.component';
     LoggerService,
     MemberService,
     RandomService,
+    StorageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 })

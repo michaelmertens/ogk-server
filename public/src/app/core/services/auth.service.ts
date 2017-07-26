@@ -5,6 +5,7 @@ import * as auth0 from 'auth0-js';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { LoggerService } from 'app/core/services/logger.service';
 import { environment } from "environments/environment";
+import { StorageService } from "app/core/services/storage.service";
 
 @Injectable()
 export class AuthService {
@@ -20,9 +21,9 @@ export class AuthService {
     scope: 'openid'
   });
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private storage: StorageService) {
     this.authStatus = <BehaviorSubject<boolean>>new BehaviorSubject(this.isAuthenticated());
-    if (this.isAuthenticated() && !localStorage.getItem('member_id')) {
+    if (this.isAuthenticated() && !storage.get('member_id')) {
       this.router.navigate(['/under-review']);
     } else {
       this.router.navigate(['/home']);
@@ -49,7 +50,7 @@ export class AuthService {
         this.setSession(authResult);
         this.authStatus.next(true);
 
-        if (this.isAuthenticated() && !localStorage.getItem('member_id')) {
+        if (this.isAuthenticated() && !this.storage.get('member_id')) {
           this.router.navigate(['/under-review']);
         } else {
           this.router.navigate(['/home']);
@@ -64,18 +65,18 @@ export class AuthService {
   private setSession(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('member_id', authResult.idTokenPayload['https://guldenkano.herokuapps.com/member-id']);
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+    this.storage.store('member_id', authResult.idTokenPayload['https://guldenkano.herokuapps.com/member-id']);
+    this.storage.store('access_token', authResult.accessToken);
+    this.storage.store('id_token', authResult.idToken);
+    this.storage.store('expires_at', expiresAt);
   }
 
   public logout(): void {
-    // Remove tokens and expiry time from localStorage
-    localStorage.removeItem('member_id');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    // Remove tokens and expiry time from storage
+    this.storage.remove('member_id');
+    this.storage.remove('access_token');
+    this.storage.remove('id_token');
+    this.storage.remove('expires_at');
     // update auth status
     this.authStatus.next(false);
     // Go back to the home route
@@ -85,13 +86,13 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(this.storage.get('expires_at'));
     return new Date().getTime() < expiresAt;
   }
 
   public getAuthorizationHeader(): string {
     if (!this.isAuthenticated) return undefined;
-    return 'Bearer ' + localStorage.getItem('id_token');
+    return 'Bearer ' + this.storage.get('id_token');
   }
 }
 
@@ -99,6 +100,7 @@ export class AuthService {
 export class AuthGuard {
   constructor(
     private authService: AuthService,
+    private storage: StorageService,
     private logger: LoggerService,
     private router: Router) { }
 
@@ -113,7 +115,7 @@ export class AuthGuard {
       this.authService.goToLogin(url);
       return false;
     }
-    if (!localStorage.getItem('member_id')) {
+    if (!this.storage.get('member_id')) {
       console.info('AuthGuard redirecting to under-review page..');
       this.router.navigate(['/under-review']);
       return false;
