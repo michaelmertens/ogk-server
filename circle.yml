@@ -27,7 +27,11 @@ dependencies:
 test:
   override:
     - gulp
-    - yarn run build-ui
+    - sed -e s@\%AUTH_AUDIENCE\%@$AUTH_AUDIENCE@ public/src/environments/environment.ci.ts > env2.ts && mv env2.ts public/src/environments/environment.ci.ts
+    - sed -e s@\%AUTH_CALLBACK_URI\%@$AUTH_CALLBACK_URI@ public/src/environments/environment.ci.ts > env2.ts && mv env2.ts public/src/environments/environment.ci.ts
+    - sed -e s/\%AUTH_CLIENT_ID\%/$AUTH_CLIENT_ID/ public/src/environments/environment.ci.ts > env2.ts && mv env2.ts public/src/environments/environment.ci.ts
+    - sed -e s/\%AUTH_DOMAIN\%/$AUTH_DOMAIN/ public/src/environments/environment.ci.ts > env2.ts && mv env2.ts public/src/environments/environment.ci.ts
+    - yarn run build-ui-ci
 
 deployment:
   ogkprd:

@@ -4,6 +4,7 @@ import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { LoggerService } from 'app/core/services/logger.service';
+import { environment } from "environments/environment";
 
 @Injectable()
 export class AuthService {
@@ -11,11 +12,11 @@ export class AuthService {
   public redirectUrl: string;
 
   auth0 = new auth0.WebAuth({
-    clientID: 'aBgzXp6IjcQrdRGNOGtoDF5qrKoY17Bh',
-    domain: 'guldenkano.eu.auth0.com',
+    clientID: environment.authClientId,
+    domain: environment.authDomain,
     responseType: 'token id_token',
-    audience: 'https://guldenkano.eu.auth0.com/userinfo',
-    redirectUri: 'http://localhost:4200/callback',
+    audience: environment.authAudience,
+    redirectUri: environment.authCallbackUrl,
     scope: 'openid'
   });
 

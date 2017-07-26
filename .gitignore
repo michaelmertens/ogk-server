@@ -30,6 +30,8 @@ build/Release
 index.js
 server/**/*.js
 public/src/**/*.js
+public/src/environments/environment.ts
+public/src/environments/environment.prod.ts
 public/dist/**/*.*
 public/node_modules
 .env
