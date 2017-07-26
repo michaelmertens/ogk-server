@@ -86,7 +86,10 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(this.storage.get('expires_at'));
+    const expiresAt = this.storage.get('expires_at');
+    if (!expiresAt) return false;
+    
+    const expiresAtDate = JSON.parse(expiresAt);
     return new Date().getTime() < expiresAt;
   }
 
