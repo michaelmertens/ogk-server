@@ -15,9 +15,9 @@ export class KingscupComponent implements OnInit {
 
   ngOnInit() {
 
-    this.http.get('http://localhost:8080/api/games/kingscup').subscribe((games: IKingsCupResponse) => {
+    this.http.get('/api/games/kingscup').subscribe((games: IKingsCupResponse) => {
       this.rulebooks = games._embedded.rulebooks;
-    })
+    });
 
   }
 

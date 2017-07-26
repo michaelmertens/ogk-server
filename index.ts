@@ -4,10 +4,10 @@ import * as passport from 'passport';
 import * as LocalStrategy from 'passport-local';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
-import {AuthFacade} from './server/facades/auth-facade';
-import {GamesFacade} from './server/facades/games-facade';
-import {EventsFacade} from './server/facades/events-facade';
-import {NewsFacade} from './server/facades/news-facade';
+import { AuthFacade } from './server/facades/auth-facade';
+import { GamesFacade } from './server/facades/games-facade';
+import { EventsFacade } from './server/facades/events-facade';
+import { NewsFacade } from './server/facades/news-facade';
 import * as dbInitializer from './server/repositories/db-initializer';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
@@ -26,6 +26,13 @@ var mongodb = require('mongodb'),
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080);
 
+
+// middleware to use for all API requests
+app.use(function (req, res, next) {
+    // do logging
+    logger.info(req.method + " " + req.url);
+    next();
+});
 
 // SECURITY CONFIGURATION
 // =============================================================================
@@ -97,12 +104,6 @@ passport.deserializeUser(function (user, done) {
     done(null, user);
 });
 
-app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
 // APPLICATION
 // =============================================================================
 app.use(express.static(path.join(__dirname, '/public/dist')));
@@ -120,26 +121,24 @@ app.use(function(err, req, res, next) {
 // ROUTES FOR OUR API
 // =============================================================================
 // authentication required beyond this point
-app.use(AuthFacade.jwtCheck,
-  function(req, res, next) {
-    if (!req.user['https://guldenkano.herokuapps.com/member-id']) return res.send(401);    
-    req.user.memberId = req.user['https://guldenkano.herokuapps.com/member-id'];
-    next(); 
-  });
+app.all('/api*',
+    AuthFacade.jwtCheck,
+    function (req, res, next) {
+        if (!req.user['https://guldenkano.herokuapps.com/member-id']) return res.send(401);
+        req.user.memberId = req.user['https://guldenkano.herokuapps.com/member-id'];
+        next();
+    });
 //app.all('/api*', AuthFacade.requireAuthentication);
-
-// middleware to use for all API requests
-app.use(function(req, res, next) {
-    // do logging
-    logger.info(req.method + " " + req.url);
-    next(); 
-});
 
 // more routes for our API will happen here
 app.use('/api/auth', AuthFacade.router);
 app.use('/api/events', EventsFacade.router);
 app.use('/api/games', GamesFacade.router);
 app.use('/api/news', NewsFacade.router);
+
+app.get('*', function(req,res,next) {
+    res.sendFile(__dirname + '/public/dist/index.html');
+});
 
 // 
 // Start application and initialize DB Connection
