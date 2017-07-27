@@ -153,8 +153,8 @@
 								href = $a.attr('href'),
 								target = $a.attr('target');
 
-							if (!href || href == '#' || href == '' || href == '#' + id)
-								return;
+							// if (!href || href == '#' || href == '' || href == '#' + id)
+							// 	return;
 
 							// Cancel original event.
 								event.preventDefault();
