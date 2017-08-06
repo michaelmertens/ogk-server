@@ -6,10 +6,13 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { LoggerService } from 'app/core/services/logger.service';
 import { environment } from "environments/environment";
 import { StorageService } from "app/core/services/storage.service";
+import { Member } from "models/member";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
   public authStatus: BehaviorSubject<boolean>;
+  public memberId: BehaviorSubject<string>;
   public redirectUrl: string;
 
   auth0 = new auth0.WebAuth({
@@ -21,9 +24,11 @@ export class AuthService {
     scope: 'openid'
   });
 
-  constructor(public router: Router, private storage: StorageService) {
+  constructor(public router: Router, public http: HttpClient, private storage: StorageService) {
     this.authStatus = <BehaviorSubject<boolean>>new BehaviorSubject(this.isAuthenticated());
-    if (this.isAuthenticated() && !storage.get('member_id')) {
+    this.memberId = <BehaviorSubject<string>>new BehaviorSubject(this.getMemberId());
+    
+    if (this.isAuthenticated() && !this.getMemberId()) {
       this.router.navigate(['/under-review']);
     } else {
       this.router.navigate(['/home']);
@@ -65,10 +70,14 @@ export class AuthService {
   private setSession(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const memberId = authResult.idTokenPayload['https://guldenkano.herokuapps.com/member-id'];
+    if (!memberId) throw new Error("Illegal user");
+
     this.storage.store('member_id', authResult.idTokenPayload['https://guldenkano.herokuapps.com/member-id']);
     this.storage.store('access_token', authResult.accessToken);
     this.storage.store('id_token', authResult.idToken);
     this.storage.store('expires_at', expiresAt);
+    this.memberId.next(memberId);
   }
 
   public logout(): void {
@@ -78,6 +87,7 @@ export class AuthService {
     this.storage.remove('id_token');
     this.storage.remove('expires_at');
     // update auth status
+    this.memberId.next(undefined);
     this.authStatus.next(false);
     // Go back to the home route
     this.router.navigate(['/']);
@@ -96,6 +106,10 @@ export class AuthService {
   public getAuthorizationHeader(): string {
     if (!this.isAuthenticated) return undefined;
     return 'Bearer ' + this.storage.get('id_token');
+  }
+
+  private getMemberId(): string {
+    return this.storage.get('member_id');
   }
 }
 

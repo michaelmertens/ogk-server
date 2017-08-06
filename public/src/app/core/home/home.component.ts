@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "app/core/services/auth.service";
+import { MemberService } from "app/core";
 
 @Component({
   selector: 'ogk-home',
@@ -8,17 +9,25 @@ import { AuthService } from "app/core/services/auth.service";
 })
 export class HomeComponent implements OnInit {
   public isAuthenticated: boolean;
+  public name: string;
 
-  constructor(private auth: AuthService) { }
+  constructor(private authSvc: AuthService, private memberSvc: MemberService) { }
 
   ngOnInit() {
-    this.auth.authStatus.subscribe((isAuthenticated) => {
-      this.isAuthenticated = isAuthenticated
+    this.authSvc.authStatus.subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
     });
+    this.memberSvc.member.subscribe((member) => {
+      if (member) {
+        this.name = member.firstName + " " + member.lastName;
+      } else {
+        this.name = "stranger";
+      }
+    })
   }
 
   login() {
-    this.auth.login();
+    this.authSvc.login();
   }
 
 }

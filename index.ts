@@ -15,6 +15,7 @@ import * as log4js from 'log4js';
 import * as cors from 'cors';
 import appConfig from './server/app-config';
 import appSecurity from './server/app-security';
+import { MembersFacade } from "./server/facades/member-facade";
 
 var logger = log4js.getLogger('[ogk] [index]');
 var app = express();
@@ -135,6 +136,7 @@ app.use('/api/auth', AuthFacade.router);
 app.use('/api/events', EventsFacade.router);
 app.use('/api/games', GamesFacade.router);
 app.use('/api/news', NewsFacade.router);
+app.use('/api/members', MembersFacade.router);
 
 app.get('*', function(req,res,next) {
     res.sendFile(__dirname + '/public/dist/index.html');

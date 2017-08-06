@@ -1,4 +1,5 @@
-export class Member {
-    public firstName: string;
-    public lastName: string;
+export interface Member {
+    id: string;
+    firstName: string;
+    lastName: string;
 }

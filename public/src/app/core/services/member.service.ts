@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Member } from "app/models";
+import { HttpClient } from "@angular/common/http";
+import { AuthService } from "app/core/services/auth.service";
+import { BehaviorSubject } from "rxjs/Rx";
+import { IGetMembersResponse } from "models/api-contracts/members";
 
 @Injectable()
 export class MemberService {
+  public member: BehaviorSubject<Member>;
   private memberCollection: Array<Member>;
 
-  constructor() {    
-    this.memberCollection = [
-      { firstName: 'Michael', lastName: 'Mertens' },
-      { firstName: 'Tom', lastName: 'Meyns' },
-      { firstName: 'Bernard', lastName: 'Spitz' },
-      { firstName: 'Tom', lastName: 'Hendrix' },
-      { firstName: 'Karel', lastName: 'Mangeleer' },
-      { firstName: 'Jens', lastName: 'Vande Cavey' },
-      { firstName: 'Nico', lastName: 'Vansina' },
-      { firstName: 'Vincent', lastName: 'Pieters' },
-      { firstName: 'Evert', lastName: 'Baeten' },
-      { firstName: 'Neil', lastName: 'Rayyan' },
-      { firstName: 'Ludo', lastName: 'Aelbrecht' }
-    ];
+  constructor(private auth: AuthService, private http: HttpClient) {
+    this.member = new BehaviorSubject<Member>(null);
+    this.auth.memberId.subscribe((value) => {
+      if (!value) {
+        this.member.next(null);
+        return;
+      }
+
+      this.http.get('/api/members').subscribe((resp: IGetMembersResponse) => {
+        this.memberCollection = resp._embedded.members;
+        this.member.next(this.memberCollection.find((m) => m.id === value));
+      });
+    });
   }
 
   public getEveryone(): Array<Member> {
