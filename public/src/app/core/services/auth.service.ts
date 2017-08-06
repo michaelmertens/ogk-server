@@ -24,7 +24,7 @@ export class AuthService {
     scope: 'openid'
   });
 
-  constructor(public router: Router, public http: HttpClient, private storage: StorageService) {
+  constructor(public router: Router, private storage: StorageService) {
     this.authStatus = <BehaviorSubject<boolean>>new BehaviorSubject(this.isAuthenticated());
     this.memberId = <BehaviorSubject<string>>new BehaviorSubject(this.getMemberId());
     

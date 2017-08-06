@@ -1,14 +1,14 @@
-  <section id="banner">
+  <section *ngIf="!isAuthenticated" id="banner">
     <div class="content">
       <h1>Welkom stranger!</h1>
       <ul class="actions">
-        <li *ngIf="!isAuthenticated"><a href="" (click)="login();" class="button scrolly">log in</a></li>
+        <li><a href="" (click)="login();" class="button scrolly">log in</a></li>
       </ul>
     </div>
   </section>
 
-  <section *ngIf="isAuthenticated" id="one" class="wrapper">
-    <div class="content">
+  <section *ngIf="isAuthenticated" id="one">
+    <div class="text-center mbottom1">
       <h1>Welkom {{name}}!</h1>
     </div>
     <div class="inner flex flex-3">
@@ -16,7 +16,7 @@
         <div>
           <h3>Members</h3>
           <p>Morbi in sem quis dui plalorem ipsum<br /> euismod in, pharetra sed ultricies.</p>
-          <a href="" routerLink="members" class="button scrolly">OPEN</a>
+          <a href="" routerLink="/tools/members" class="button scrolly">OPEN</a>
         </div>
         <div>
           <h3>Games</h3>

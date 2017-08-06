@@ -8,7 +8,7 @@ import { IGetMembersResponse } from "models/api-contracts/members";
 @Injectable()
 export class MemberService {
   public member: BehaviorSubject<Member>;
-  private memberCollection: Array<Member>;
+  private memberCollection: Array<Member> = [];
 
   constructor(private auth: AuthService, private http: HttpClient) {
     this.member = new BehaviorSubject<Member>(null);
