@@ -8,6 +8,7 @@ import { AuthService } from "app/core/services/auth.service";
 })
 export class NavbarComponent implements OnInit {
   public isAuthenticated: boolean;
+  public showMenu: boolean;
 
   constructor(private auth: AuthService) { }
 
@@ -23,5 +24,9 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
   }
 }

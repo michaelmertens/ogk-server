@@ -1,7 +1,7 @@
 
 <header id="header">
   <nav class="left">
-    <a href="#menu"><span>Menu</span></a>
+    <a (click)="$event.preventDefault();toggleMenu()" href="#menu"><span>Menu</span></a>
   </nav>
   <a href="index.html" class="logo">Orde van de Gulden Kano</a>
   <nav class="right">
@@ -10,7 +10,7 @@
   </nav>
 </header>
 
-<nav id="menu">
+<nav id="menu" [class.visible]="showMenu" (click)="toggleMenu();">
   <ul class="links">
     <li routerLink="home"><a>Home</a></li>
     <li routerLink="tools/news"><a>News</a></li>
