@@ -42,7 +42,7 @@ export function addMember(member: Member, user: IUserSession) {
                 reject(errorService.createErrorMessage(errorCodes.ERROR_BAD_REQUEST, "KEY_ALREADY_EXISTS"));
             })
             .catch((err) => {
-                if (errorService.isCustomError(err) && err.error.id === errorCodes.ERROR_NOT_FOUND) {
+                if (errorService.isCustomError(err) && err.error.key === errorCodes.ERROR_NOT_FOUND) {
                     memberRepo.create(member).then((result) => {
                         resolve(result);
                     }).catch((err) => {

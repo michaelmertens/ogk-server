@@ -31,13 +31,13 @@ export function getById(id: string) {
 export function getByKey(key: string) {
     return Q.Promise(function (resolve, reject) {
         MemberModel.find({'id': key}, {"__v":0})
-            .exec((err, result: Member)=> {
+            .exec((err, result: Member[])=> {
                 if (err) {
                     reject(err);
-                } else if (!result) {
-                    reject(errorService.createErrorMessage(errorCodes.ERROR_NOT_FOUND))
+                } else if (!result || !result[0]) {
+                    reject(errorService.createErrorMessage(errorCodes.ERROR_NOT_FOUND));
                 } else {
-                    resolve(result);
+                    resolve(result[0]);
                 }
             });
     })

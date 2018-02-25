@@ -12,7 +12,6 @@
         "manifest.json",
         "favicon.ico"
       ],
-      "serviceWorker": true,
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",

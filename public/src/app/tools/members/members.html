@@ -8,7 +8,7 @@
     <ul class="alt list-center">
       <li *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
         <dl>
-          <dt>{{vm.member.lastName}}</dt>
+          <dt>{{vm.member.firstName}} {{vm.member.lastName}}</dt>
           <dd [hidden]="!vm.expand">
             Adres: Bondgenotenlaan 1, 3000 Leuven Rekeningnr.: BE36 5874 6985 4522
           </dd>

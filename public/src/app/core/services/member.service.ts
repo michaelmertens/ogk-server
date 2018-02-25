@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { AuthService } from "app/core/services/auth.service";
 import { BehaviorSubject } from "rxjs/Rx";
 import { IGetMembersResponse } from "models/api-contracts/members";
+import { environment } from "environments/environment";
 
 @Injectable()
 export class MemberService {
@@ -18,7 +19,7 @@ export class MemberService {
         return;
       }
 
-      this.http.get('/api/members').subscribe((resp: IGetMembersResponse) => {
+      this.http.get(environment.apiBaseUrl +'/api/members').subscribe((resp: IGetMembersResponse) => {
         this.memberCollection = resp._embedded.members;
         this.member.next(this.memberCollection.find((m) => m.id === value));
       });
@@ -32,5 +33,11 @@ export class MemberService {
   public getRandomMember(): Member {
     let randomIdx = Math.floor(Math.random() * (this.memberCollection.length));
     return this.memberCollection[randomIdx];
+  }
+
+  public seed(): void {
+    this.http.post(environment.apiBaseUrl + '/api/members/seed', undefined).take(1).subscribe((val) => {
+      console.log(val);
+    });
   }
 }
