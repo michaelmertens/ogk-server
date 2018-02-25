@@ -12,15 +12,15 @@
 
 <nav id="menu" [class.visible]="showMenu" (click)="toggleMenu();">
   <ul class="links">
-    <li routerLink="home"><a>Home</a></li>
-    <li routerLink="tools/news"><a>News</a></li>
+    <li routerLink="home">Home</li>
+    <li routerLink="tools/news">News</li>
   </ul>
   <ul class="links" *ngIf="isAuthenticated">
-    <li routerLink="games/8ball"><a>8-Ball</a></li>
-    <li routerLink="games/kings-cup"><a>King's Cup</a></li>
-    <li routerLink="games/sing-your-song"><a>Sing Your Song</a></li>
-    <li routerLink="tools/members"><a>Members</a></li>
-    <li routerLink="tools/chinese-volunteer"><a>Chinese Volunteer</a></li>
+    <li routerLink="games/8ball">8-Ball</li>
+    <li routerLink="games/kings-cup">King's Cup</li>
+    <li routerLink="games/sing-your-song">Sing Your Song</li>
+    <li routerLink="tools/members">Members</li>
+    <li routerLink="tools/chinese-volunteer">Chinese Volunteer</li>
   </ul>
   <ul class="actions vertical">
     <li *ngIf="!isAuthenticated"><a class="button fit" (click)="login();">Login</a></li>
