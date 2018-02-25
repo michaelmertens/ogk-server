@@ -1,4 +1,5 @@
 import * as kingscupRepo from './games/kingscup-repo';
+import * as memberRepo from './member-repo';
 import * as Log4js from 'log4js';
 import * as Q from 'q';
 import appConfig from "./../app-config";
@@ -19,6 +20,7 @@ export function initConnection() {
         });
         db.once('open', function () {
             kingscupRepo.initializeSchema();
+            memberRepo.initializeSchema();
             logger.info("DB initialized");
             resolve("DB connected");
         });

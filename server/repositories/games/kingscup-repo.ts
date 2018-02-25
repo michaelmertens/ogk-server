@@ -33,7 +33,7 @@ export function getByKey(key: string) {
             .exec((err, result: IKingsCupRulebook)=> {
                 if (err) {
                     reject(err);
-                } else if (!result) {
+                } else if (!result || (result instanceof Array && result.length === 0)) {
                     reject(errorService.createErrorMessage(errorCodes.ERROR_NOT_FOUND))
                 } else {
                     resolve(result);

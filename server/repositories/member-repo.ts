@@ -8,7 +8,7 @@ var MemberModel;
 
 // create the model for users and expose it to our app
 export function initializeSchema() {
-    MemberModel = mongoose.model('Member', memberSchema);
+    MemberModel = mongoose.model('Member', MemberSchema);
 }
 
 
@@ -16,6 +16,21 @@ export function initializeSchema() {
 export function getById(id: string) {
     return Q.Promise(function (resolve, reject) {
         MemberModel.findById(id, {"__v":0})
+            .exec((err, result: Member)=> {
+                if (err) {
+                    reject(err);
+                } else if (!result || (result instanceof Array && result.length === 0)) {
+                    reject(errorService.createErrorMessage(errorCodes.ERROR_NOT_FOUND))
+                } else {
+                    resolve(result);
+                }
+            });
+    })
+}
+
+export function getByKey(key: string) {
+    return Q.Promise(function (resolve, reject) {
+        MemberModel.find({'id': key}, {"__v":0})
             .exec((err, result: Member)=> {
                 if (err) {
                     reject(err);
@@ -30,8 +45,8 @@ export function getById(id: string) {
 
 export function getMemberByEmail(email: string) {
     return Q.Promise(function (resolve, reject) {
-        MemberModel.findOne({ "email": email }, {"__v":0})
-            .exec((err, member: Member)=> {
+        MemberModel.findOne({ "email": email }, { "__v": 0 })
+            .exec((err, member: Member) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -44,7 +59,7 @@ export function getMemberByEmail(email: string) {
 export function getAll() {
     return Q.Promise((resolve, reject) => {
         MemberModel.find({})
-            .exec((err, results: any[])=> {
+            .exec((err, results: any[]) => {
                 if (err) {
                     reject(err);
                 }
@@ -57,29 +72,29 @@ export function getAll() {
 export function create(member: Member) {
     let obj = new MemberModel(member);
     return Q.ninvoke(obj, "save")
-        .then((result)=>{
+        .then((result) => {
             return result[0];
         });
 }
 
 export function update(member: Member) {
     return Q.ninvoke(member, "save")
-        .then((result)=> {
+        .then((result) => {
             return result[0].toObject();
         });
 }
 
-// define the schema for our user model
-var memberSchema = new mongoose.Schema({
-    local            : {
-        id           : String,
-        email        : String,
-        firstName    : String,
-        lastName     : String,
-        password     : String,
-        birthday     : String,
-        phoneNumber  : String,
-        address      : String,
-        iban         : String,
-    }
+// SCHEMA
+export var MemberSchema = new mongoose.Schema({
+    id: { type: String, indexed: true },
+    email: { type: String },
+    firstName: { type: String },
+    lastName: { type: String },
+    password: { type: String },
+    birthday: { type: String },
+    phoneNumber: { type: String },
+    address: { type: String },
+    iban: { type: String },
+}, {
+    timestamps: true
 });

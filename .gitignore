@@ -35,6 +35,7 @@ public/src/environments/environment.prod.ts
 public/dist/**/*.*
 public/node_modules
 .env
+.idea
 
 # Dependency directories
 node_modules

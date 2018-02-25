@@ -6,6 +6,7 @@ import { SharedModule } from "app/shared/shared.module";
 import { Routes } from "@angular/router";
 import { KingscupComponent } from './kingscup/kingscup.component';
 import { KingscupRulebookComponent } from './kingscup/kingscup-rulebook/kingscup-rulebook.component';
+import { VomitComponent } from './vomit/vomit.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { KingscupRulebookComponent } from './kingscup/kingscup-rulebook/kingscup
     EightBall,
     KingscupComponent,
     KingscupRulebookComponent,
+    VomitComponent,
   ]
 })
 export class GamesModule { }

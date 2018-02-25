@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-dev": "nodemon -r dotenv/config --inspect=9229 index.js",
+    "serve": "cd public && ng serve",
     "build-ui": "cd public && ng build --prod",
     "build-ui-ci": "cd public && ng build --environment=ci --prod",
     "test": "echo \"Error: no test specified\" && exit 1"

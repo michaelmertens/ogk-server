@@ -11,7 +11,7 @@ const logger: Logger = Log4js.getLogger('[ogk] [member service]');
 
 // GETTERS
 export function getMember(id: string) {
-    return memberRepo.getById(id);
+    return memberRepo.getByKey(id);
 }
 
 export function getMembers() {
@@ -26,7 +26,7 @@ export function addMembers(members: Member[], user: IUserSession) {
         }
 
         return resolve(Q.all(members.map((m) => {
-            this.addMember(m, user);
+            return this.addMember(m, user);
         })));
     });
 }
@@ -37,7 +37,7 @@ export function addMember(member: Member, user: IUserSession) {
             reject(errorService.createErrorMessage(errorCodes.ERROR_BAD_REQUEST))
             return;
         }
-        memberRepo.getById(member.id)
+        memberRepo.getByKey(member.id)
             .then(() => {
                 reject(errorService.createErrorMessage(errorCodes.ERROR_BAD_REQUEST, "KEY_ALREADY_EXISTS"));
             })
@@ -57,7 +57,7 @@ export function addMember(member: Member, user: IUserSession) {
 
 
 export function updateMember(update: Member, user: IUserSession) {
-    return memberRepo.getById(update.id)
+    return memberRepo.getByKey(update.id)
         .then((current: Member)=>{
             if(!canUpdateMember(current, user)) {
                 throw errorService.createErrorMessage(errorCodes.ERROR_NOT_AUTHORIZED);
@@ -67,7 +67,7 @@ export function updateMember(update: Member, user: IUserSession) {
 }
 
 // export function removeMember(member: Member, user: IUserSession) {
-//     return memberRepo.getById(member.id)
+//     return memberRepo.getByKey(member.id)
 //         .then((current: Member)=>{
 //             if(!canUpdateMember(current, user)) {
 //                 throw errorService.createErrorMessage(errorCodes.ERROR_NOT_AUTHORIZED);
