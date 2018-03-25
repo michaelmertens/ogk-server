@@ -1,0 +1,12 @@
+.input-group {
+  margin-bottom: 8px;
+  display: flex;
+
+  > *:nth-child(1) {
+    flex: 1;
+  }
+
+  > *:nth-child(2) {
+    flex: 4;
+  }
+}

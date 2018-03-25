@@ -1,34 +1,32 @@
-  <div class="container">
-  <section *ngIf="!isAuthenticated" id="banner">
-    <div class="content">
-      <h1>Welkom stranger!</h1>
-      <ul class="actions">
-        <li><button (click)="login();" class="button">log in</button></li>
-      </ul>
-    </div>
-  </section>
+<section *ngIf="!isAuthenticated" id="banner">
+  <div class="content">
+    <h1>Welkom stranger!</h1>
+    <ul class="actions">
+      <li><button (click)="login();" class="button">log in</button></li>
+    </ul>
+  </div>
+</section>
 
-  <section *ngIf="isAuthenticated" id="links">
-    <div class="well text-center">
-      <h1>Welkom {{name}}!</h1>
+<section *ngIf="isAuthenticated" id="links">
+  <div class="well text-center">
+    <h1>Welkom {{name}}!</h1>
+  </div>
+  <div class="menu-cards">
+    <div class="cell" routerLink="/tools/members">
+      <span class="menu-title">Members</span>
+      <p>Alle nuttige info over de leden zal je hier vinden!</p>
     </div>
-    <div class="menu-cards">
-      <div class="cell" routerLink="/tools/members">
-        <span class="menu-title">Members</span>
-        <p>Alle nuttige info over de leden zal je hier vinden!</p>
-      </div>
-      <div class="cell" routerLink="/tools/events">
-        <span class="menu-title">Calendar</span>
-        <p>Iets voor Neil?</p>
-      </div>
-      <div class="cell" routerLink="games">
-        <span class="menu-title">Games</span>
-        <p>PARTEEEEEY</p>
-      </div>
-      <div class="cell" routerLink="tools">
-        <span class="menu-title">Tools</span>
-        <p>To be defined..</p>
-      </div>
+    <div class="cell" routerLink="/tools/events">
+      <span class="menu-title">Calendar</span>
+      <p>Iets voor Neil?</p>
     </div>
-  </section>
-</div>
+    <div class="cell" routerLink="games">
+      <span class="menu-title">Games</span>
+      <p>PARTEEEEEY</p>
+    </div>
+    <div class="cell" routerLink="tools">
+      <span class="menu-title">Tools</span>
+      <p>To be defined..</p>
+    </div>
+  </div>
+</section>

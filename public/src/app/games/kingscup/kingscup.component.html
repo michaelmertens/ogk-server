@@ -1,8 +1,7 @@
-<div>
-  Select a rulebook:
-  <ul>
-    <li *ngFor="let rb of rulebooks"><a (click)="openRuleBook(rb)">{{rb.name}}</a></li>
-  </ul>
- 
-  <ogk-kingscup-rulebook *ngIf="selectedRuleBook" [rulebook]="selectedRuleBook"></ogk-kingscup-rulebook>
-</div>
+
+Select a rulebook:
+<ul>
+  <li *ngFor="let rb of rulebooks"><a (click)="openRuleBook(rb)">{{rb.name}}</a></li>
+</ul>
+
+<ogk-kingscup-rulebook *ngIf="selectedRuleBook" [rulebook]="selectedRuleBook"></ogk-kingscup-rulebook>

@@ -8,12 +8,12 @@ export interface ICalendarEvent {
   id: string;
   type: string;
   title: string;
-  status: string;
   date: Date;
-  dateUntil: Date;
+  dateUntil?: Date;
   location: string;
   description: string;
-  hidden: boolean;
+  status: string;
+  owner: string;
   createdBy: string;
   attendees: string[];
 }
@@ -22,8 +22,8 @@ export interface ICalendarEventSpecification {
   type: string;
   title: string;
   date: Date;
-  dateUntil: Date;
+  dateUntil?: Date;
   location: string;
   description: string;
-  hidden: boolean;
+  status: string;
 }

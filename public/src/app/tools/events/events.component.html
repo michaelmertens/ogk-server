@@ -1,10 +1,10 @@
-<div class="container" *ngIf="isInitialized">
+<div >
 
-  <div class="well" *ngIf="events.length === 0">
+  <div class="well" *ngIf="isInitialized && events.length === 0">
     No events
   </div>
 
-  <div class="alt list-center">
+  <div class="alt list-center" *ngIf="isInitialized">
     <div class="cell event" *ngFor="let vm of events" (click)="vm.expand = !vm.expand">
 
         <h4>{{vm.title}}</h4>

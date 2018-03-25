@@ -1,7 +1,7 @@
 // load the things we need
 import * as Q from 'q';
 import * as mongoose from "mongoose";
-import { Member } from "../../public/src/models/member";
+import { IMember } from "../../public/src/models/api-contracts/members";
 import * as errorService from '../services/error-service';
 import errorCodes from '../shared/error-codes';
 var MemberModel;
@@ -16,7 +16,7 @@ export function initializeSchema() {
 export function getById(id: string) {
     return Q.Promise(function (resolve, reject) {
         MemberModel.findById(id, {"__v":0})
-            .exec((err, result: Member)=> {
+            .exec((err, result: IMember)=> {
                 if (err) {
                     reject(err);
                 } else if (!result || (result instanceof Array && result.length === 0)) {
@@ -31,7 +31,7 @@ export function getById(id: string) {
 export function getByKey(key: string) {
     return Q.Promise(function (resolve, reject) {
         MemberModel.find({'id': key}, {"__v":0})
-            .exec((err, result: Member[])=> {
+            .exec((err, result: IMember[])=> {
                 if (err) {
                     reject(err);
                 } else if (!result || !result[0]) {
@@ -46,7 +46,7 @@ export function getByKey(key: string) {
 export function getMemberByEmail(email: string) {
     return Q.Promise(function (resolve, reject) {
         MemberModel.findOne({ "email": email }, { "__v": 0 })
-            .exec((err, member: Member) => {
+            .exec((err, member: IMember) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -69,7 +69,7 @@ export function getAll() {
 };
 
 // MODIFIERS
-export function create(member: Member) {
+export function create(member: IMember) {
     let obj = new MemberModel(member);
     return Q.ninvoke(obj, "save")
         .then((result) => {
@@ -77,7 +77,7 @@ export function create(member: Member) {
         });
 }
 
-export function update(member: Member) {
+export function update(member: IMember) {
     return Q.ninvoke(member, "save")
         .then((result) => {
             return result[0].toObject();

@@ -5,7 +5,7 @@ import * as memberService from '../services/member-service';
 import { handleErrors } from "../services/error-service";
 import * as Log4js from 'log4js';
 import { Logger } from "log4js";
-import { Member } from "../../public/src/models/member";
+import { IMember } from "../../public/src/models/api-contracts/members";
 import { IUserSession } from "../shared/contracts/user-contract";
 const router = express.Router();
 
@@ -28,11 +28,11 @@ export class MembersFacade {
     }
 
     static addMember(req: Request, res: Response) {
-        let rulebook: Member = req.body;
+        let member: IMember = req.body;
 
         authService.getAuthenticatedUser(req)
             .then((user: IUserSession) => {
-                return memberService.addMember(rulebook, user);
+                return memberService.addMember(member, user);
             })
             .catch(handleErrors(res, logger))
             .done();
@@ -40,11 +40,11 @@ export class MembersFacade {
 
     static updateMember(req: Request, res: Response) {
         let id = req.params.id;
-        let rulebook: Member = req.body;
+        let member: IMember = req.body;
 
         authService.getAuthenticatedUser(req)
             .then((user: IUserSession) => {
-                return memberService.updateMember(rulebook, user);
+                return memberService.updateMember(member, user);
             })
             .then(result => res.send(result))
             .catch(handleErrors(res, logger))

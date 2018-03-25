@@ -3,7 +3,7 @@ import * as Log4js from 'log4js';
 import * as errorService from '../services/error-service';
 import * as memberRepo from '../repositories/member-repo';
 import { Logger } from "log4js";
-import { Member } from "../../public/src/models/member";
+import { IMember } from "../../public/src/models/api-contracts/members";
 import errorCodes from '../shared/error-codes';
 import { IUserSession } from "../shared/contracts/user-contract";
 
@@ -18,7 +18,7 @@ export function getMembers() {
     return memberRepo.getAll();
 }
 
-export function addMembers(members: Member[], user: IUserSession) {
+export function addMembers(members: IMember[], user: IUserSession) {
     return Q.Promise((resolve, reject) => {
         if (!user.isAdmin) {
             reject(errorService.createErrorMessage(errorCodes.ERROR_NOT_AUTHORIZED))
@@ -31,7 +31,7 @@ export function addMembers(members: Member[], user: IUserSession) {
     });
 }
 
-export function addMember(member: Member, user: IUserSession) {
+export function addMember(member: IMember, user: IUserSession) {
     return Q.Promise((resolve, reject) => {
         if (!member.id) {
             reject(errorService.createErrorMessage(errorCodes.ERROR_BAD_REQUEST))
@@ -56,9 +56,9 @@ export function addMember(member: Member, user: IUserSession) {
 }
 
 
-export function updateMember(update: Member, user: IUserSession) {
+export function updateMember(update: IMember, user: IUserSession) {
     return memberRepo.getByKey(update.id)
-        .then((current: Member)=>{
+        .then((current: IMember)=>{
             if(!canUpdateMember(current, user)) {
                 throw errorService.createErrorMessage(errorCodes.ERROR_NOT_AUTHORIZED);
             }
@@ -83,6 +83,6 @@ export function updateMember(update: Member, user: IUserSession) {
 //     return name.toLowerCase().replace(/[^0-9a-zA-Z]/g, '').substr(0, 50);
 // }
 
-function canUpdateMember(item: Member, user: IUserSession): boolean {
+function canUpdateMember(item: IMember, user: IUserSession): boolean {
     return user.isAdmin || item.id === user.nameId;
 }
