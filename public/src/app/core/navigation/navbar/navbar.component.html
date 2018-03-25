@@ -1,31 +1,71 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Gulden Kano</a>
+    </div>
+    <div class="fixed-right">
+      <button type="button" (click)="$event.preventDefault();toggleMenu()">
+        MENU
+      </button>      
+    </div >
+  </div>
+</nav>
+<!-- 
 
-<header id="header">
   <nav class="left">
-    <a (click)="$event.preventDefault();toggleMenu()" href="#menu"><span>Menu</span></a>
+    <a  href="#menu"><span>Menu</span></a>
   </nav>
   <a href="index.html" class="logo">Orde van de Gulden Kano</a>
   <nav class="right">
-    <a *ngIf="!isAuthenticated" class="button alt" (click)="login();">LOG IN</a>
-    <a *ngIf="isAuthenticated" class="button alt" (click)="logout();">LOG OUT</a>
   </nav>
-</header>
+</header> -->
 
-<nav id="menu" [class.visible]="showMenu" (click)="toggleMenu();">
-  <ul class="links">
-    <li routerLink="home">Home</li>
-    <li routerLink="tools/news">News</li>
-  </ul>
-  <ul class="links" *ngIf="isAuthenticated">
-    <li routerLink="games/8ball">8-Ball</li>
-    <li routerLink="games/kings-cup">King's Cup</li>
-    <li routerLink="games/sing-your-song">Sing Your Song</li>
-    <li routerLink="tools/members">Members</li>
-    <li routerLink="tools/chinese-volunteer">Chinese Volunteer</li>
-  </ul>
-  <ul class="actions vertical">
-    <li *ngIf="!isAuthenticated"><a class="button fit" (click)="login();">Login</a></li>
-    <li *ngIf="isAuthenticated"><a class="button fit" (click)="logout();">Logout</a></li>
-  </ul>
+<nav class="menu" [class.open]="showMenu" (click)="toggleMenu();">
+    <h3 class="text-center">Tools</h3>
+    <div class="card">
+      <div class="row">
+        <div class="col-xs-6 block">
+          <a  routerLink="/tools/members" class="button scrolly">Members</a>
+        </div>
+        <div class="col-xs-6 block">
+          <a routerLink="/tools/events" class="button scrolly">Events</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 block">
+          <a routerLink="/tools/dagboek" class="button scrolly">Dagboek</a>
+        </div>
+        <div class="col-xs-6 block">
+          <a routerLink="/tools" class="button scrolly">Tools</a>
+        </div>
+      </div>
+    </div>
+      
+  <div class="card">
+    <h3 class="text-center">Games</h3>
+    <div class="row">
+      <div class="col-xs-6 block">
+        <a routerLink="/games/eight-ball" class="button scrolly">Eight ball</a>
+      </div>
+      <div class="col-xs-6 block">
+        <a routerLink="/games/sing-your-song" class="button scrolly">Sing your Song</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 block">
+        <a routerLink="/games/kings-cup" class="button scrolly">Kings cup</a>
+      </div>
+      <div class="col-xs-6 block">
+        <a routerLink="/games/vomit" class="button scrolly">Vomit</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+      <li *ngIf="!isAuthenticated"><a class="button fit" (click)="login();">Login</a></li>
+      <li *ngIf="isAuthenticated"><a class="button fit" (click)="logout();">Logout</a></li>
+  </div>
 </nav>
 <!-- 
 <nav class="navbar">

@@ -1,3 +1,4 @@
+  <div class="container">
   <section *ngIf="!isAuthenticated" id="banner">
     <div class="content">
       <h1>Welkom stranger!</h1>
@@ -8,36 +9,26 @@
   </section>
 
   <section *ngIf="isAuthenticated" id="links">
-    <div class="text-center mbottom1">
+    <div class="well text-center">
       <h1>Welkom {{name}}!</h1>
     </div>
-    <div class="inner flex flex-3">
-      <div class="flex-item left">
-        <div>
-          <h3>Members</h3>
-          <p>Alle nuttige info over de leden zal je hier vinden!</p>
-          <a href="" routerLink="/tools/members" class="button scrolly">OPEN</a>
-        </div>
-        <div>
-          <h3>Games</h3>
-          <p>PARTEEEEEY</p>
-          <a routerLink="games" class="button scrolly">OPEN</a>
-        </div>
+    <div class="menu-cards">
+      <div routerLink="/tools/members">
+        <span class="menu-title">Members</span>
+        <p>Alle nuttige info over de leden zal je hier vinden!</p>
       </div>
-      <div class="flex-item image fit round">
-        <img src="assets/images/pic01.jpg" alt="" />
+      <div routerLink="games">
+        <span class="menu-title">Games</span>
+        <p>PARTEEEEEY</p>
       </div>
-      <div class="flex-item right">
-        <div>
-          <h3>Calendar</h3>
-          <p>Iets voor Neil?</p>
-          <a href="#one" routerLink="calendar" class="button scrolly">OPEN</a>
-        </div>
-        <div>
-          <h3>Tools</h3>
-          <p>To be defined..</p>
-          <a href="#one" routerLink="tools" class="button scrolly">OPEN</a>
-        </div>
+      <div routerLink="calendar">
+        <span class="menu-title">Calendar</span>
+        <p>Iets voor Neil?</p>
+      </div>
+      <div routerLink="tools">
+        <span class="menu-title">Tools</span>
+        <p>To be defined..</p>
       </div>
     </div>
   </section>
+</div>

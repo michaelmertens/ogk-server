@@ -1,5 +1,27 @@
-.navbar {
-  display: flex;
-  align-content: space-between;
-  flex-direction: row;
+.menu {
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  opacity: 0;
+  margin-top: -50px;
+  transition: all 200ms ease-out;
+  pointer-events: none;
+
+  &.open {
+    margin-top: 0;
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.fixed-right {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.block {
+  text-align: center;
+  padding: 25px 0;
+  border: 1px solid black;  
 }

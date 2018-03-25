@@ -1,16 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/css/font-awesome.min.css";
-@import "assets/css/main.css";
-
-@import "styles/utils";
-
-/*
-@import "assets/css/font-awesome.min.css";
-
-
 @import "styles/variables";
+
+// @import "assets/css/main.css";
 @import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-
 @import "styles/utils";
-*/
+
+
+
+body {
+  background-image: url("https://igx.4sqi.net/img/general/width960/8715674_RfcyWCVor3bEsIEq5HoZzvJUU37RGSJqVMhBEXFyL6w.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
+}

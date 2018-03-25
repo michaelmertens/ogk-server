@@ -1,4 +1,4 @@
-<div class="members">
+<div class="container members">
   <header class="align-center">
     <h1>Members</h1>
     <p></p>
@@ -10,7 +10,9 @@
         <dl>
           <dt>{{vm.member.firstName}} {{vm.member.lastName}}</dt>
           <dd [hidden]="!vm.expand">
-            Adres: Bondgenotenlaan 1, 3000 Leuven Rekeningnr.: BE36 5874 6985 4522
+            <li>Adres: {{vm.member.address || '/'}}</li>
+            <li>Rekeningnr.: {{vm.member.iban || '/'}}</li>
+            <li>Rijkregisternummer: {{vm.member.ssn || '/'}}</li>
           </dd>
         </dl>
       </li>

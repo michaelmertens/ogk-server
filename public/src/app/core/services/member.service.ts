@@ -21,7 +21,7 @@ export class MemberService {
 
       this.http.get(environment.apiBaseUrl +'/api/members').subscribe((resp: IGetMembersResponse) => {
         this.memberCollection = resp._embedded.members;
-        this.member.next(this.memberCollection.find((m) => m.id === value));
+        this.member.next(this.memberCollection.find((m) => m.id.toLowerCase() === value.toLowerCase()));
       });
     });
   }
@@ -33,11 +33,5 @@ export class MemberService {
   public getRandomMember(): Member {
     let randomIdx = Math.floor(Math.random() * (this.memberCollection.length));
     return this.memberCollection[randomIdx];
-  }
-
-  public seed(): void {
-    this.http.post(environment.apiBaseUrl + '/api/members/seed', undefined).take(1).subscribe((val) => {
-      console.log(val);
-    });
   }
 }
