@@ -1,0 +1,13 @@
+@import "~styles/variables";
+
+.event-row {
+  display: flex;
+
+  div:nth-child(1) {
+    flex: 1;
+    font-weight: 900;
+  }
+  div:nth-child(2) {
+    flex: 3;
+  }
+}

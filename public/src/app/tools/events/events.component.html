@@ -1,3 +1,41 @@
-<p>
-  events works!
-</p>
+<div class="container" *ngIf="isInitialized">
+
+  <div class="well" *ngIf="events.length === 0">
+    No events
+  </div>
+
+  <div class="alt list-center">
+    <div class="cell event" *ngFor="let vm of events" (click)="vm.expand = !vm.expand">
+
+        <h4>{{vm.title}}</h4>
+
+        <div class="event-row">
+            <div>When</div>
+            <div>{{vm.date}}{{vm.dateUntil ? ' - ' + vm.dateUntil : ''}}</div>
+        </div>
+        <div class="event-row">
+            <div>Where</div>
+            <div>{{vm.location}}</div>
+        </div>
+        <div class="event-row">
+            <div>What</div>
+            <div>{{vm.description}}</div>
+        </div>
+        <div class="event-row">
+            <div>Status</div>
+            <div>{{vm.status}}</div>
+        </div>
+        <div class="event-row" *ngIf="vm.attendees">
+            <div>Attendees</div>
+            <div>{{vm.attendees.length}}</div>
+        </div>
+        <div class="event-row" *ngIf="vm.attendees">
+            <div></div>
+            <div>
+                <span *ngFor="let m of vm.attendees" class="label label-default">{{m}}</span>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>

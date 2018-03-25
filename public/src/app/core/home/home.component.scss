@@ -1,21 +1,10 @@
-#links {
- .inner {
-   .flex-item.left {
-     div {
-       margin-left: auto;
-     }
-   }
- } 
-}
-
+@import "~styles/variables";
 
 .menu-cards {
   > div {
-    color: rgba(255,255,255,0.6);
+    color: map-get($colors, 'light');
     background: rgba(0,0,0,0.5);
-    border:  2px solid  rgba(0,0,0,0.52);
-    padding: 10px 15px;
-    margin-bottom: 10px;
+    border: 2px solid rgba(0,0,0,0.52);
   }
 
   .menu-title {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Member } from "app/models";
+import { IMember } from "app/models";
 import { MemberService, RandomService } from "app/core";
 
 @Component({
@@ -29,6 +29,6 @@ export class ChineseVolunteer {
 }
 
 interface ViewModel {
-  member: Member;
+  member: IMember;
   active: boolean;
 }

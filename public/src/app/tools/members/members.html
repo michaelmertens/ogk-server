@@ -4,19 +4,17 @@
     <p></p>
   </header>
 
-  <div class="row">
-    <ul class="alt list-center">
-      <li *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
+    <div class="alt">
+      <div class="cell" *ngFor="let vm of members" (click)="vm.expand = !vm.expand">
         <dl>
-          <dt>{{vm.member.firstName}} {{vm.member.lastName}}</dt>
+          <dt>{{vm.member.lastName}}, {{vm.member.firstName}}</dt>
           <dd [hidden]="!vm.expand">
-            <li>Adres: {{vm.member.address || '/'}}</li>
-            <li>Rekeningnr.: {{vm.member.iban || '/'}}</li>
-            <li>Rijkregisternummer: {{vm.member.ssn || '/'}}</li>
+            <span>Adres: {{vm.member.address || '/'}}</span><br />
+            <span>Rekeningnr.: {{vm.member.iban || '/'}}</span><br />
+            <span>Rijkregisternummer: {{vm.member.ssn || '/'}}</span>
           </dd>
         </dl>
-      </li>
-    </ul>
+      </div>
+    </div>
 
-  </div>
 </div>

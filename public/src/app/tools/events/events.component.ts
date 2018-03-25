@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from "app/core";
+import { ICalendarEvent } from "models/api-contracts/event";
 
 @Component({
   selector: 'ogk-events',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsComponent implements OnInit {
 
-  constructor() { }
+  public events: ICalendarEvent[] = [];
+  public isInitialized: boolean;
+
+  constructor(
+     private eventService: EventService,
+  ) { }
 
   ngOnInit() {
+    this.eventService.getEvents().subscribe((events: ICalendarEvent[]) => {
+      this.isInitialized = true;
+      this.events = events;
+    });
   }
 
 }

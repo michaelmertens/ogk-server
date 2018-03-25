@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { EventService } from './services/event.service';
 import { LoggerService } from './services/logger.service';
 import { MemberService } from './services/member.service';
 import { RandomService } from './services/random.service';
@@ -38,6 +39,7 @@ import { HomeComponent } from './home/home.component';
   providers: [
     AuthGuard,
     AuthService,
+    EventService,
     LoggerService,
     MemberService,
     RandomService,

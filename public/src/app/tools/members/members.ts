@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MemberService } from "app/core";
-import { Member } from "app/models";
+import { MemberService } from "app/core/services/member.service";
+import { IMember } from "models/api-contracts/members";
 
 @Component({
   selector: 'ogk-members',
@@ -30,5 +30,5 @@ export class Members {
 
 interface IViewModel {
   expand: boolean;
-  member: Member;
+  member: IMember;
 }

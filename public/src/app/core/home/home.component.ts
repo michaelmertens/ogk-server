@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "app/core/services/auth.service";
 import { MemberService } from "app/core";
-import { Member } from "models/member";
+import { IMember } from "models/api-contracts/members";
 
 @Component({
   selector: 'ogk-home',
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     this.authSvc.authStatus.subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated;
     });
-    this.memberSvc.member.subscribe((member: Member) => {
+    this.memberSvc.member.subscribe((member: IMember) => {
       if (member) {
         this.name = member.firstName + " " + member.lastName;
       } else {

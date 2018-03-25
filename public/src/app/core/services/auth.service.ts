@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { LoggerService } from 'app/core/services/logger.service';
 import { environment } from "environments/environment";
 import { StorageService } from "app/core/services/storage.service";
-import { Member } from "models/member";
+import { IMember } from "models/api-contracts/members";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable()

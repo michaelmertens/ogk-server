@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Member } from "app/models";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "app/core/services/auth.service";
 import { BehaviorSubject } from "rxjs/Rx";
-import { IGetMembersResponse } from "models/api-contracts/members";
+import { IMember, IGetMembersResponse } from "models/api-contracts/members";
 import { environment } from "environments/environment";
 
 @Injectable()
 export class MemberService {
-  public member: BehaviorSubject<Member>;
-  private memberCollection: Array<Member> = [];
+  public member: BehaviorSubject<IMember>;
+  private memberCollection: Array<IMember> = [];
 
   constructor(private auth: AuthService, private http: HttpClient) {
-    this.member = new BehaviorSubject<Member>(null);
+    this.member = new BehaviorSubject<IMember>(null);
     this.auth.memberId.subscribe((value) => {
       if (!value) {
         this.member.next(null);
@@ -26,11 +25,11 @@ export class MemberService {
     });
   }
 
-  public getEveryone(): Array<Member> {
+  public getEveryone(): Array<IMember> {
     return this.memberCollection;
   }
 
-  public getRandomMember(): Member {
+  public getRandomMember(): IMember {
     let randomIdx = Math.floor(Math.random() * (this.memberCollection.length));
     return this.memberCollection[randomIdx];
   }

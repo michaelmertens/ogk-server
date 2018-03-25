@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MemberService, RandomService } from "app/core";
-import { Member } from "app/models";
+import { IMember } from "app/models";
 
 @Component({
   selector: 'ogk-sing-your-song',
@@ -8,7 +8,7 @@ import { Member } from "app/models";
 })
 export class SingYourSong {
   public currentSong: Song;
-  public currentMember: Member;
+  public currentMember: IMember;
   private songCollection: Array<Song>;
 
   constructor(
